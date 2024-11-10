@@ -12,7 +12,10 @@ body {
 	width: 80%;
 	max-width: 1200px;
 }
-
+.completed {
+	text-decoration: line-through;
+	color: gray;
+}
 .header {
 	text-align: center;
 	margin-bottom: 20px;

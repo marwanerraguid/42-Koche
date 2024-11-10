@@ -17,15 +17,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	let userLevelValue = 0;
 	let editingProject = null;
 	function loadProjects() {
+		projects.sort((a, b) => (a.status === "Completed" ? 1 : -1));
 		projectsTableBody.innerHTML = "";
 		projectGrid.innerHTML = "";
 		projects.forEach((project, index) => {
 			const row = document.createElement("tr");
+			if (project.status === "Completed") {
+				row.classList.add("completed");
+			} else {
+				row.classList.remove("completed");
+			}
 			row.innerHTML = `
                 <td>${project.title}</td>
                 <td>${project.technologies.join(", ")}</td>
                 <td>${project.xp}</td>
-                <td>${project.daysLeft}j</td>
+                <td>${project.daysLeft} jours</td>
                 <td>
                     <select class="status-select" data-index="${index}">
                         <option value="To Do" ${
@@ -52,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			projectCard.innerHTML = `
                 <h3>${project.title}</h3>
                 <p>${project.technologies.join(", ")}</p>
-                <p>${project.daysLeft} jours restants</p>
+                <p>${project.daysLeft} jours</p>
             `;
 			projectGrid.appendChild(projectCard);
 		});
@@ -80,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function updateXP() {
 		let totalXP = 0;
 
-		// Calcul de l'XP total (ajuste cela selon la logique de ton projet)
+		// Calcul de l'XP total en comptant seulement les projets terminés
 		projects.forEach((project) => {
 			if (project.status === "Completed") {
 				totalXP += project.xp;
@@ -101,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		userLevelValue = Math.floor(userXPValue / 100); // Le niveau est calculé à chaque fois qu'on atteint 100 XP
 		userLevelElem.innerText = `${userLevelValue}`; // Affiche le niveau
 	}
-
 	// Appel de la fonction pour mettre à jour l'XP et le niveau initialement
 	updateXP();
 
@@ -183,9 +188,22 @@ document.addEventListener("DOMContentLoaded", () => {
 	projectsTableBody.addEventListener("change", (e) => {
 		if (e.target.classList.contains("status-select")) {
 			const index = e.target.getAttribute("data-index");
-			projects[index].status = e.target.value;
+			const newStatus = e.target.value;
+			const previousStatus = projects[index].status;
+
+			// Mettre à jour le statut du projet
+			projects[index].status = newStatus;
 			saveProjects();
-			loadProjects();
+
+			// Recalculer l'XP seulement si le statut a changé de manière significative
+			if (
+				(previousStatus === "Completed" && newStatus !== "Completed") ||
+				(previousStatus !== "Completed" && newStatus === "Completed")
+			) {
+				updateXP(); // Met à jour l'XP et le niveau en fonction du nouveau statut
+			}
+
+			loadProjects(); // Recharge la liste des projets
 		}
 	});
 
