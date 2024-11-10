@@ -17,7 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	let userLevelValue = 0;
 	let editingProject = null;
 	function loadProjects() {
-		projects.sort((a, b) => (a.status === "Completed" ? 1 : -1));
+		projects.sort((a, b) => {
+			if (a.status === "Completed" && b.status !== "Completed") return 1;
+			if (a.status !== "Completed" && b.status === "Completed") return -1;
+			return a.xp - b.xp;
+		});
 		projectsTableBody.innerHTML = "";
 		projectGrid.innerHTML = "";
 		projects.forEach((project, index) => {
