@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Gestion des projets</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<!-- Niveau et XP -->
+			<section id="levelSection" class="grid-item">
+				<h2>Niveau Actuel</h2>
+				<p id="userLevel">0</p>
+				<div id="xpBar" class="xp-bar">
+					<div id="xpFill" class="xp-fill"></div>
+				</div>
+				<p id="userXP">0/100 XP</p>
+			</section>
+
+			<!-- Tableau des projets créés -->
+			<section id="projectsTableSection" class="grid-item">
+				<h2>Tableau des projets</h2>
+				<table id="projectsTable">
+					<thead>
+						<tr>
+							<th>Titre</th>
+							<th>Technologies</th>
+							<th>XP Gagnée</th>
+							<th>Jours Restants</th>
+							<th>État</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody id="projectsTableBody">
+						<!-- Les projets s'affichent ici -->
+					</tbody>
+				</table>
+				<button id="newProjectButton" class="btn">
+					+ Nouveau Projet
+				</button>
+			</section>
+
+			<!-- Liste des projets -->
+			<section id="projectsListSection" class="grid-item">
+				<h2>Projets créés</h2>
+				<div id="projectGrid" class="project-grid">
+					<!-- Les cartes des projets s'affichent ici -->
+				</div>
+			</section>
+
+			<!-- Dernier projet en cours -->
+			<section id="currentProjectSection" class="grid-item">
+				<h2>Dernier projet en cours</h2>
+				<p id="currentProject">Aucun projet en cours</p>
+			</section>
+		</div>
+
+		<!-- Modale de création ou d'édition de projet -->
+		<div id="projectModal" class="modal">
+			<div class="modal-content">
+				<span id="closeModalButton" class="close">&times;</span>
+				<h2 id="modalTitle">Créer un nouveau projet</h2>
+				<form id="projectForm">
+					<label for="projectTitle">Titre du projet :</label>
+					<input
+						type="text"
+						id="projectTitle"
+						name="projectTitle"
+						required
+					/>
+
+					<label for="technologies">Technologies :</label>
+					<input
+						type="text"
+						id="technologies"
+						name="technologies"
+						required
+					/>
+
+					<label for="xp">XP gagnée :</label>
+					<input type="number" id="xp" name="xp" required />
+
+					<label for="daysLeft">Jours restants :</label>
+					<input
+						type="number"
+						id="daysLeft"
+						name="daysLeft"
+						required
+					/>
+
+					<label for="status">Statut :</label>
+					<select id="status" name="status" required>
+						<option value="To Do">À faire</option>
+						<option value="In Progress">En cours</option>
+						<option value="Completed">Terminé</option>
+					</select>
+
+					<button type="submit" class="btn">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
