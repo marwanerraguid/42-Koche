@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${project.title}</td>
                 <td>${project.technologies.join(", ")}</td>
                 <td>${project.xp}</td>
-                <td>${project.daysLeft} jours</td>
+                <td>${project.daysLeft} jour(s)</td>
                 <td>
                     <select class="status-select" data-index="${index}">
                         <option value="To Do" ${
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			projectCard.innerHTML = `
                 <h3>${project.title}</h3>
                 <p>${project.technologies.join(", ")}</p>
-                <p>${project.daysLeft} jours</p>
+                <p>${project.daysLeft} jour(s)</p>
             `;
 			projectGrid.appendChild(projectCard);
 		});
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			(project) => project.status === "In Progress"
 		);
 		if (lastInProgress) {
-			currentProjectElem.innerText = `${lastInProgress.title} - ${lastInProgress.daysLeft} jours restants`;
+			currentProjectElem.innerText = `${lastInProgress.title} - ${lastInProgress.daysLeft} jour(s) restant(s)`;
 		} else {
 			currentProjectElem.innerText = "Aucun projet en cours";
 		}
