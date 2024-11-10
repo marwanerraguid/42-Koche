@@ -2,7 +2,7 @@
 	box-sizing: border-box;
 }
 body {
-	font-family: Arial, sans-serif;
+	font-family: "Open Sans", sans-serif;
 	background-color: #f0f2f5;
 	min-height: 100vh;
 	margin: 0;
@@ -24,6 +24,7 @@ body {
 	font-size: 2rem;
 	margin: 0;
 }
+
 /* Barre de niveau et expérience */
 .user-level {
 	display: flex;
@@ -108,6 +109,11 @@ body {
 	background-color: #9e9e9e;
 }
 
+.status-select,
+#status {
+	padding: 5px;
+	border-radius: 5px;
+}
 button {
 	margin-top: 10px;
 }
@@ -150,6 +156,7 @@ h2 {
 	height: 100%;
 	background-color: #2196f3;
 	width: 50%;
+	border-radius: 10px;
 }
 
 /* Table styles */
@@ -280,12 +287,44 @@ form button:hover {
 	background-color: rgb(133, 3, 3);
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 750px) {
 	.container {
 		grid-template-areas:
 			"level level level"
 			"days days days"
 			"projects projects projects"
 			"table table table";
+	}
+	#projectsTable th,
+	#projectsTable td {
+		font-size: 14px;
+		padding: 8px;
+	}
+
+	#projectsTable thead {
+		display: none;
+	}
+
+	#projectsTable tbody tr {
+		display: block;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	#projectsTable tbody tr td {
+		display: block;
+		font-size: 14px;
+		padding: 8px 0;
+		border: none;
+	}
+
+	#projectsTable tbody tr td:last-child {
+		padding-bottom: 20px;
+	}
+	#newProjectButton {
+		width: 100%;
+		font-size: 14px;
+		padding: 12px;
 	}
 }

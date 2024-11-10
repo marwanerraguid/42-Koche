@@ -16,19 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	let userXPValue = 0;
 	let userLevelValue = 0;
 	let editingProject = null;
-
-	// Load the projects from localStorage
 	function loadProjects() {
 		projectsTableBody.innerHTML = "";
 		projectGrid.innerHTML = "";
 		projects.forEach((project, index) => {
-			// Add to table
 			const row = document.createElement("tr");
 			row.innerHTML = `
                 <td>${project.title}</td>
                 <td>${project.technologies.join(", ")}</td>
                 <td>${project.xp}</td>
-                <td>${project.daysLeft}</td>
+                <td>${project.daysLeft}j</td>
                 <td>
                     <select class="status-select" data-index="${index}">
                         <option value="To Do" ${
@@ -54,9 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			projectCard.classList.add("project-card");
 			projectCard.innerHTML = `
                 <h3>${project.title}</h3>
-                <p>Technologies: ${project.technologies.join(", ")}</p>
-                <p>XP: ${project.xp}</p>
-                <p>Jours Restants: ${project.daysLeft}</p>
+                <p>${project.technologies.join(", ")}</p>
+                <p>${project.daysLeft} jours restants</p>
             `;
 			projectGrid.appendChild(projectCard);
 		});
