@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (a.status !== "Completed" && b.status === "Completed") return -1;
 			return a.xp - b.xp;
 		});
+		decrementDaysLeft();
 		projectsTableBody.innerHTML = "";
 		projectGrid.innerHTML = "";
 		projects.forEach((project, index) => {
@@ -80,13 +81,35 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Update XP and level
 		updateXP();
 	}
+	function decrementDaysLeft() {
+		const currentDate = new Date().toDateString();
 
-	// Save projects to localStorage
+		projects.forEach((project) => {
+			if (project.status === "In Progress" && project.daysLeft > 0) {
+				const lastUpdated = new Date(
+					project.lastUpdated || currentDate
+				);
+				const daysDifference = Math.floor(
+					(new Date(currentDate) - lastUpdated) /
+						(1000 * 60 * 60 * 24)
+				);
+
+				if (daysDifference > 0) {
+					project.daysLeft = Math.max(
+						0,
+						project.daysLeft - daysDifference
+					);
+					project.lastUpdated = currentDate;
+				}
+			}
+		});
+
+		saveProjects();
+	}
 	function saveProjects() {
 		localStorage.setItem("projects", JSON.stringify(projects));
 	}
 
-	// Update XP and level display
 	function updateXP() {
 		let totalXP = 0;
 
